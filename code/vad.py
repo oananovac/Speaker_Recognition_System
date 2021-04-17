@@ -29,7 +29,8 @@ class Vad(object):
             sample_rate = wf.getframerate()  # frecventa de esantionare
             assert sample_rate in (8000, 16000, 32000, 48000)
             pcm_data = wf.readframes(
-                wf.getnframes())  # citeste si returneaza primele n frame uri // getnframe -- nr de frame uri din secv audio
+                wf.getnframes())  # citeste si returneaza primele n frame uri // getnframe -- nr de frame uri din
+            # secv audio
 
             return pcm_data, sample_rate
 
@@ -81,8 +82,7 @@ class Vad(object):
         for frame in frames:
             is_speech = vad.is_speech(frame.bytes, sample_rate)  # true sau false ( vorbire )
 
-
-            sys.stdout.write('1' if is_speech else '0')
+            #sys.stdout.write('1' if is_speech else '0')
             if not triggered:
                 ring_buffer.append((frame, is_speech))
                 num_voiced = len([f for f, speech in ring_buffer if speech])
@@ -91,7 +91,7 @@ class Vad(object):
                 # TRIGGERED state.
                 if num_voiced > 0.9 * ring_buffer.maxlen:
                     triggered = True
-                    sys.stdout.write('+(%s)' % (ring_buffer[0][0].timestamp,))
+                    #sys.stdout.write('+(%s)' % (ring_buffer[0][0].timestamp,))
                     # We want to yield all the audio we see from now until
                     # we are NOTTRIGGERED, but we have to start with the
                     # audio that's already in the ring buffer.
@@ -108,14 +108,14 @@ class Vad(object):
                 # unvoiced, then enter NOTTRIGGERED and yield whatever
                 # audio we've collected.
                 if num_unvoiced > 0.9 * ring_buffer.maxlen:
-                    sys.stdout.write('-(%s)' % (frame.timestamp + frame.duration))
+                    #sys.stdout.write('-(%s)' % (frame.timestamp + frame.duration))
                     triggered = False
                     yield b''.join([f.bytes for f in voiced_frames])
                     ring_buffer.clear()
                     voiced_frames = []
-        if triggered:
-            sys.stdout.write('-(%s)' % (frame.timestamp + frame.duration))
-        sys.stdout.write('\n')
+        #if triggered:
+            #sys.stdout.write('-(%s)' % (frame.timestamp + frame.duration))
+        #sys.stdout.write('\n')
         # If we have any leftover voiced audio when we run out of input,
         # yield it.
         if voiced_frames:
@@ -136,7 +136,7 @@ class Vad(object):
 
         decimal_signal = np.empty(int(len(final_signal)/2), dtype=object)
         for i in range(len(final_signal)):
-            decimal_signal[i] = struct.unpack('h', final_signal[2*i:2*i+2])[0]
+            [decimal_signal[i]] = struct.unpack('h', final_signal[2*i:2*i+2])
             if 2 * i + 2 == len(final_signal):
                 break
 

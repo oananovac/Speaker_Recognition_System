@@ -153,3 +153,4 @@ fabric.properties
 
 # Ignore all text files
 *.txt
+*.mat
