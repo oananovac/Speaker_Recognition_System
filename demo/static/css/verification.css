@@ -1,0 +1,13 @@
+img{
+    align-self: center;
+    position: relative;
+    max-height: 60vh;
+}
+.right{
+    max-height: 70vh;
+    align-items: center;
+    margin-right: 5vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}

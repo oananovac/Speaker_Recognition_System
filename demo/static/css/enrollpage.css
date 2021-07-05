@@ -1,0 +1,18 @@
+img{
+    align-self: center;
+    position: relative;
+    max-height: 70vh;
+}
+.right{
+    max-height: 70vh;
+    align-items: center;
+    margin-right: 25vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+
+
+
+

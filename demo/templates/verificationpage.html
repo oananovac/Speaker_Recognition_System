@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verification</title>
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static',filename='css/verification.css')}}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static',filename='css/base.css')}}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static',filename='css/base_pages.css')}}">
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<div class="c1">
+<h1>Speaker verification</h1>
+</div>
+<div class="container">
+    <div class="left">
+        <h2>In order to verify your identity, please enter your username and a recording of your voice.</h2>
+        <h2>The recording should be around 9-10 seconds and be recorded with
+            a sampling frequency of 16 kHz.</h2>
+        <form method="post" class="formm" enctype=multipart/form-data>
+
+            <div class="inputs">
+                <input type="text" placeholder="Type username..." name="username" id='username' >
+
+                    <label for="file1"><i class="fa fa-cloud-upload"></i>Choose a wav file</label>
+                    <input class='inputfile' type="file" id="file1" name="file1" />
+
+                <input class='submitBtn' type="submit" value="Verify me" >
+
+
+
+             {% if error %}
+            <p class=error><strong>Error:</strong> {{ error }}
+            {% endif %}
+             {% if message %}
+            <p class=message><strong>Succes:</strong> {{ message }}
+            {% endif %}
+                 </div>
+
+        </form>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+        $('#file1').change(function() {
+          var i = $(this).prev('label').clone();
+          var file = $('#file1')[0].files[0].name;
+          $(this).prev('label').text(file);
+});
+        </script>
+    </div>
+    <div class="right">
+          <img src="{{ url_for('static',filename='images/img3.svg')}}">
+    </div>
+
+</div>
+</div>
+ <div class="btn">
+    <a class="bt22" href="home">Back to home page</a>
+</div>
+</body>
+</html>
